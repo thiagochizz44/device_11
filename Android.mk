@@ -16,6 +16,11 @@
 
 LOCAL_PATH := $(call my-dir)
 
+$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr: $(wildcard $(PRODUCT_VENDOR_KERNEL_HEADERS)/*)
+ 	rm -rf $@
+ 	mkdir -p $@/include
+ 	cp -a $(PRODUCT_VENDOR_KERNEL_HEADERS)/. $@/include
+
 ifneq ($(filter odessa, $(TARGET_DEVICE)),)
   subdir_makefiles=$(call first-makefiles-under,$(LOCAL_PATH))
   $(foreach mk,$(subdir_makefiles),$(info including $(mk) ...)$(eval include $(mk)))
